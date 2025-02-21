@@ -1,6 +1,7 @@
 package pack;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,13 +12,27 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/Serv")
 public class Serv extends HttpServlet {
 
-    private Facade f = new Facade();
+    private final Facade f;
+    
+    public Serv() throws ClassNotFoundException, SQLException {
+        f = new Facade();
+    }
  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
-        request.setAttribute("lp", f.listePersonnes());
-        request.setAttribute("la", f.listeAdresses());
+        try {
+            request.setAttribute("lp", f.listePersonnes());
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        try {
+            request.setAttribute("la", f.listeAdresses());
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         request.getRequestDispatcher(action + ".jsp").forward(request, response);
     }
 
@@ -27,19 +42,37 @@ public class Serv extends HttpServlet {
         if (action.equalsIgnoreCase("ajoutPersonne")) {
             String prenom = request.getParameter("prenom");
             String nom = request.getParameter("nom");
-            f.ajoutPersonne(nom, prenom);
+            try {
+                f.ajoutPersonne(nom, prenom);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             
             
         } else if (action.equalsIgnoreCase("ajoutAdresse")) {
             String rue = request.getParameter("rue");
             String ville = request.getParameter("ville");
-            f.ajoutAdresse(rue, ville);
+            try {
+                f.ajoutAdresse(rue, ville);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 
             
         }else if (action.equalsIgnoreCase("associer")) {
             String idP = request.getParameter("idP");
             String idA = request.getParameter("idA");
-            f.associer(Integer.parseInt(idP), Integer.parseInt(idA));
+            try {
+                f.associer(Integer.parseInt(idP), Integer.parseInt(idA));
+            } catch (NumberFormatException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         response.sendRedirect("index.html");
     }

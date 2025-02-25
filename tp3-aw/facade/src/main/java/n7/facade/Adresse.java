@@ -1,15 +1,28 @@
 package n7.facade;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class Adresse {
 
-    private final int id;
-    private final String address;
-    private final String city;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String address;
+    private String city;
 
-    public Adresse(String add, String cityname, int id) {
+    @ManyToOne
+    @JoinColumn(name = "personneid")
+    private Personne personne;
+
+    public Adresse(String add, String cityname) {
         address = add;
         city = cityname;
-        this.id = id;
     }
 
     public String getAddress() {
@@ -58,6 +71,18 @@ public class Adresse {
     @Override
     public String toString() {
         return address + " " + city;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
 }

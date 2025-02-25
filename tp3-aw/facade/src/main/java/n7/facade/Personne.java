@@ -1,23 +1,32 @@
 package n7.facade;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class Personne {
 
-    private List<Adresse> la = new ArrayList<>();
-    private final int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private final String name;
     private final String firstname;
 
+    @OneToMany
+    Collection<Adresse> la;
 
-    public Personne(int id, String name, String firstname) {
-        this.id = id;
+
+    public Personne(String name, String firstname) {
         this.name = name;
         this.firstname = firstname;
     }
 
-    public List<Adresse> getLa() {
+    public Collection<Adresse> getLa() {
         return la;
     }
 
@@ -33,7 +42,7 @@ public class Personne {
         return firstname;
     }
 
-    public void setLa(List<Adresse> la) {
+    public void setLa(Collection<Adresse> la) {
         this.la = la;
     }
 

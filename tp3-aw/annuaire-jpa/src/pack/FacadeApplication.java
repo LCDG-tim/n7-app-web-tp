@@ -1,4 +1,4 @@
-package n7.facade;
+package pack;
 
 import java.sql.SQLException;
 import java.util.Collection;
@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.RestController;
-
-import jakarta.annotation.PostConstruct;
-
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,12 +66,5 @@ public class FacadeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FacadeApplication.class, args);
 	}
-
-    @PostConstruct
-    public void populate() {
-        las.save(new Adresse("dan", "u"));
-        lps.save(new Personne("bota", "niste"));
-        lps.save(new Personne("luc", "chatel"));
-    }
 
 }

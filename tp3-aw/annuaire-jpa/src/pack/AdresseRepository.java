@@ -1,13 +1,13 @@
-package n7.facade;
+package pack;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PersonneRepository extends JpaRepository<Personne, Long> {
+public interface AdresseRepository extends JpaRepository<Adresse, Long> {
+    
     // Compte save(Compte c) ;
     // Optional<Compte> findById(Long id);
     // Collection<Compte> findAll();
     // void delete(Compte c) ;
     // long count() ;
-
 }

@@ -1,4 +1,4 @@
-package n7.facade;
+package pack;
 
 
 public interface Facade {
